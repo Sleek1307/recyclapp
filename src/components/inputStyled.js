@@ -1,37 +1,39 @@
 import React from 'react';
-import { View, TextInput,StyleSheet } from 'react-native';
-import theme from '../theme';
+import { StyleSheet } from 'react-native';
+
+import { Input } from '@ui-kitten/components';
+import Icon from 'react-native-vector-icons/Ionicons';
+
+import theme from '../assets/themes/theme';
 
 const styles = StyleSheet.create({
   formControl: {
     width: '75%',
-    height: 52,
-    margin: 5,
-    paddingHorizontal: 15,
+    marginVertical: 10,
     borderWidth: 1,
-    borderColor: theme.colors.whiteSmoke,
-    backgroundColor: theme.colors.whiteSmoke,
-    color: theme.colors.black,
     borderRadius: 15,
-    fontSize: theme.fontSizes.header,
-    fontFamily: theme.fonts.body,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 1,
-    shadowRadius: 3.84,
-    elevation: 5,
+    elevation: 2
+  },
+  fontStyle: {
+    color: '#000000',
+    fontSize: 16
   }
 })
 
-const StyledInput = ({ placeholder }) => {
+const StyledInput = ({ title, icon, width }) => {
   return (
-    <TextInput
-      placeholder={placeholder.text}
-      placeholderTextColor={placeholder.color}
-      style={{ ...styles.formControl }}
+    <Input
+      style={
+        width === undefined
+          ? { ...styles.formControl, }
+          : { ...styles.formControl, width: width }
+      }
+      textStyle={{
+        ...styles.fontStyle
+      }}
+      placeholder={title}
+      size='large'
+      accessoryRight={<Icon name={icon} size={25} />}
     />
   );
 }

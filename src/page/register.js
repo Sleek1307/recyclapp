@@ -1,96 +1,103 @@
 import React from "react";
-import { View, StyleSheet, Image, TouchableOpacity, Text } from "react-native";
-import theme from "../theme";
+import { View, StyleSheet, Image, TouchableOpacity, Text, Alert } from "react-native";
+
+import { Layout } from "@ui-kitten/components";
+
+import theme from "../assets/themes/theme";
 import StyledInput from "../components/inputStyled";
 import ButtonStyled from "../components/buttonStyled";
-import { useNavigate } from "react-router-native";
+import StyledPassword from "../components/inputs/styledPassword";
+import StyledSelect from "../components/inputs/styledSelect";
 
-const Register = () => {
+const Register = (props) => {
 
-  const navigate = useNavigate();
+  return (
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: theme.colors.whiteSmoke
+      }}>
+      {/* Lunares */}
+      <View style={{
+        ...style.circleOne
+      }} />
+      <View style={{
+        ...style.circleTwo
+      }} />
+      <View style={{
+        ...style.circleThree
+      }} />
+      <View style={{
+        ...style.circleFour
+      }} />
 
-  return (<View
-    style={{
-      flex: 1,
-      backgroundColor: theme.colors.whiteSmoke
-    }}>
-    {/* Lunares */}
-    <View style={{
-      ...style.circleOne
-    }} />
-    <View style={{
-      ...style.circleTwo
-    }} />
-    <View style={{
-      ...style.circleThree
-    }} />
-    <View style={{
-      ...style.circleFour
-    }} />
+      {/* Logo */}
+      <View style={{
+        ...style.logo
+      }}>
+        <Image source={require('../../img/RECYCLAPP.LOGO.2.png')}
+          style={{
+            height: 350,
+            width: 350
+          }} />
+      </View>
 
-    {/* Logo */}
-    <View style={{
-      ...style.logo
-    }}>
-      <Image source={require('../../img/RECYCLAPP.LOGO.2.png')}
-        style={{
-          height: 350,
-          width: 350
-        }} />
-    </View>
+      {/* Formulario */}
+      <View style={{
+        ...style.form
+      }}>
+        <StyledInput
+          title={'Nombre completo'}
+          icon={'person'}
+        />
 
-    {/* Formulario */}
-    <View style={{
-      ...style.form
-    }}>
-      <StyledInput
-        placeholder={{
-          text: 'Nombre completo',
-          color: theme.colors.dark
-        }}
-      />
-      <StyledInput
-        placeholder={{
-          text: 'Tipo de documento',
-          color: theme.colors.dark,
-        }}
-      />
-      <StyledInput
-        placeholder={{
-          text: 'N° de documento',
-          color: theme.colors.dark,
-        }}
-      />
-      <StyledInput
-        placeholder={{
-          text: 'Contraseña',
-          color: theme.colors.dark,
-        }}
-      />
-      <StyledInput
-        placeholder={{
-          text: 'Confirma contraseña',
-          color: theme.colors.dark,
-        }}
-      />
-      <ButtonStyled
-        text={'Registrar'}
-        style={{
-          ...style.register
-        }}
-      />
+        {/* Documento */}
 
-      <TouchableOpacity
-        onPress={() => { navigate('/') }}
-      >
-        <Text style={{
-          ...style.login
+        <Layout style={{
+          width: '75%',
+          flexDirection: "row",
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          backgroundColor: 'transparent'
         }}>
-          Iniciar sesion
-        </Text>
-      </TouchableOpacity>
-    </View>
-  </View>)
+          <StyledSelect
+            data={['CC', 'TI', 'NIT']}
+            width={'31%'}
+          />
+          <StyledInput
+            title={'Numero de documento'}
+            icon={'card'}
+            width={'65%'}
+          />
+
+        </Layout>
+
+
+        <StyledPassword
+          title={'Contraseña'}
+        />
+
+        <StyledPassword
+          title={'Confirmar contraseña'}
+        />
+
+
+        <ButtonStyled
+          placeholder={'Registrarse'}
+          action={() => alert('Has sido registrado')}
+        />
+
+        <TouchableOpacity
+          onPress={() => {props.navigation.navigate('Signin')}}
+        >
+          <Text style={{
+            ...style.login
+          }}>
+            Iniciar sesion
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </View>)
 }
 
 const style = StyleSheet.create({

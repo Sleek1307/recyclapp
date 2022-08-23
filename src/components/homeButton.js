@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import theme from "../theme";
+import theme from "../assets/themes/theme";
 import SquareButton from "./squareButton";
 import { useNavigate } from "react-router-native";
 

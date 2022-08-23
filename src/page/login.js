@@ -1,24 +1,26 @@
 import React from "react";
 import { View, Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, Dimensions } from "react-native";
-import { useNavigate } from "react-router-native";
+
 import StyledInput from "../components/inputStyled";
 import ButtonStyled from "../components/buttonStyled";
-import theme from "../theme";
+import theme from "../assets/themes/theme";
+import {default as mainTheme} from './../assets/themes/custom-theme.json'
+
+import StyledPassword from "../components/inputs/styledPassword";
 
 const window = Dimensions.get('window');
 
-const Login = () => {
-
-  const navigate = useNavigate();
+const Login = (props) => {
 
   return (
     <View style={{
       ...style.container
     }}>
 
-      <View style={{
-        ...style.logo
-      }}
+      <View
+        style={{
+          ...style.logo
+        }}
       >
         <Image source={require('../../img/RECYCLAPP.LOGO.2.png')}
           style={{
@@ -27,72 +29,55 @@ const Login = () => {
           }} />
       </View>
 
-      <View style={{
-        ...style.form,
-        zIndex: 2
-      }}>
-        <Text style={{
-          marginBottom: theme.spacing.low,
-          fontSize: theme.fontSizes.title,
-          color: theme.colors.black,
-          fontWeight: theme.fontWeights.semiBold
+      <View
+        style={{
+          ...style.form,
         }}>
-          Inicio de sesion
-        </Text>
-        <StyledInput placeholder={{
-          text: 'Usuario',
-          color: '#7d7d7d'
-        }} />
-        <StyledInput placeholder={{
-          text: 'Contraseña',
-          color: '#7d7d7d'
-        }} />
-        <View>
-          <TouchableHighlight
-            underlayColor={theme.colors.dark}
-            style={{
-              marginVertical: theme.spacing.low
-            }}
-          >
-            <Text style={{
-              color: theme.colors.terciary,
-              fontWeight: theme.fontWeights.regular,
-              fontSize: theme.fontSizes.body,
-              textDecorationLine: 'underline'
-            }}>
-              Restaurar contraseña
-            </Text>
-          </TouchableHighlight>
-        </View>
-        <ButtonStyled
-          text={'Login'}
-          style={{
-            color: '#1f1f1f',
-            borderColor: '#1f1f1f',
-          }}
-          action={
-            () => navigate('home')
-          }
+        <StyledInput
+          title={'Usuario'}
+          icon='person'
         />
+        <StyledPassword
+          title={'Contraseña'}
+        />
+
+        {/* Restaurar contraseña */}
         <TouchableOpacity
           underlayColor={theme.colors.dark}
-          onPress={() => { navigate('/register') }}
-          style={{
-            marginTop: theme.spacing.low
-          }}
+          onPress={() => {props.navigation.navigate('Restore')}}
+        >
+          <Text style={{
+             color: mainTheme["color-primary-600"],
+            fontWeight: theme.fontWeights.regular,
+            fontSize: theme.fontSizes.body,
+            textDecorationLine: 'underline'
+          }}>
+            Restaurar contraseña
+          </Text>
+        </TouchableOpacity>
+
+        {/* Inicio de sesion */}
+        <ButtonStyled
+          placeholder={'Login'}
+          action={
+            () => {props.navigation.navigate('Initial')}
+          }
+        />
+        {/*Registrar contraseña */}
+        <TouchableOpacity
+          underlayColor={theme.colors.dark}
+          onPress={() => props.navigation.navigate('Register')}
         >
           <Text
             style={{
-              color: theme.colors.terciary,
-              fontSize: theme.fontSizes.body,
-              fontWeight: theme.fontWeights.regular,
-              textDecorationLine: 'underline',
+              ...style.link
             }}>
             Registrarse
           </Text>
 
         </TouchableOpacity>
       </View>
+
     </View>
   )
 }
@@ -102,27 +87,25 @@ const style = StyleSheet.create({
     flex: 1
   },
   form: {
-    height: theme.height.h_100 / 100 * 60,
-    width: '100%',
+    flex: 2,
     justifyContent: 'center',
     alignItems: 'center',
   },
   logo: {
-    height: theme.height.h_100 * 40 / 100,
-    width: theme.width.w_100,
+    flex: 1,
     justifyContent: theme.align.center,
     alignItems: theme.align.center,
     backgroundColor: theme.colors.secondary,
     borderBottomStartRadius: window.width * 15 / 100,
     borderBottomEndRadius: window.width * 15 / 100,
     shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 1,
-    shadowRadius: 3.84,
     elevation: 4,
+  },
+  link: {
+    color: mainTheme["color-primary-600"],
+    fontSize: theme.fontSizes.body,
+    fontWeight: theme.fontWeights.regular,
+    textDecorationLine: 'underline',
   }
 })
 

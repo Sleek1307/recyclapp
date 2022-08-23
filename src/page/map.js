@@ -1,13 +1,19 @@
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
-import FooterMenu from "../components/footerMenu";
-import HomeButton from "../components/homeButton";
-import theme from "../theme";
+import { ImageBackground, Image, StyleSheet, View, Text } from "react-native";
+
+import { Button } from "@ui-kitten/components";
+import Icon from 'react-native-vector-icons/Ionicons'
+
+import theme from "../assets/themes/theme";
 
 const Map = () => {
 
   return (
-    <View>
+    <View
+      style={{
+        ...style.container
+      }}
+    >
       <View style={{
         ...style.profile
       }}>
@@ -19,20 +25,46 @@ const Map = () => {
           }}
         />
       </View>
-      <View style={{
-        ...style.map
-      }}>
+      <View style={{ ...style.spacing }} />
+      <View style={{ ...style.map }}>
+        <View
+          style={{
+            flex: 1,
+            zIndex: 1,
+          }}
+        >
+          <ImageBackground
+            source={require('./../../img/map.png')}
+            style={{
+              flex: 1,
+              alignSelf: "stretch",
+              justifyContent: "flex-end",
+              alignItems: "center",
+            }}
+          >
+            <View style={{ ...style.card }}>
+              <Button
+                status={"primary"}
+                accessoryLeft={({color}) => {
+                  return < Icon name="add-circle" color={'#fafafa'} size={30}/>
+                }}
+              >
+                Nuevo servicio
+              </Button>
+            </View>
+          </ImageBackground>
+        </View>
       </View>
-      <HomeButton/>
-      <FooterMenu />
     </View>
   )
 }
 
 const style = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   profile: {
-    height: theme.height.h_100 * 40 / 100,
-    width: theme.width.w_100,
+    flex: 1,
     justifyContent: theme.align.center,
     alignItems: theme.align.center,
     backgroundColor: theme.colors.secondary,
@@ -47,16 +79,21 @@ const style = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 3.84,
     elevation: 4,
-    top: 0,
-    position: 'absolute'
+  },
+  spacing: {
+    flex: 2,
   },
   map: {
-    height: theme.height.h_100 * 70 / 100,
-    width: theme.width.w_100,
-    backgroundColor: theme.colors.whiteSmoke,
     position: 'absolute',
-    top: (theme.height.h_100 * 30 / 100),
+    top: theme.height.h_25,
+    bottom: 0,
+    width: theme.width.w_100,
+    backgroundColor: theme.colors.whiteSmoke
+  },
+  card: {
+    borderRadius: 15,
+    marginBottom: '25%',
   }
 })
 
-export default Map;
+export default Map; 

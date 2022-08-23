@@ -1,39 +1,26 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
+//React deppendencies
 import React from 'react';
-import Login from './src/page/login';
-import Register from './src/page/register';
-import Home from './src/page/home';
-import Tips from './src/page/tips';
+import NavigationContainer from "@react-navigation/native/lib/module/NavigationContainer"
+import 'react-native-gesture-handler';
+
+//External dependencies
+import { ApplicationProvider } from '@ui-kitten/components';
+import * as eva from '@eva-design/eva';
+
+//Custom components
 import styles from './src/styles/styles';
-import { View } from 'react-native';
-import { NativeRouter, Routes, Route } from 'react-router-native';
-import Map from './src/page/map';
-import Contact from './src/page/contact';
-import History from './src/page/history';
+import { default as theme } from './src/assets/themes/custom-theme.json'
+import SignStack from './navigations/SignStack';
 
 const App = () => {
-  return (<>
-    <NativeRouter>
-      <View style={styles.container}>
-        <Routes>
-          <Route path='/' element={<Login />} />
-          <Route path='/register' element={<Register />} />
-          <Route path='/home' element={<Home />} />
-          <Route path='/map' element={<Map />} />
-          <Route path='/tips' element={<Tips />} />
-          <Route path='/history' element={<History />} />
-          <Route path='/contact' element={<Contact />} />
-        </Routes>
-      </View>
-    </NativeRouter>
-  </>
+  return (
+    <>
+      <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
+        <NavigationContainer>
+          <SignStack />
+        </NavigationContainer>
+      </ApplicationProvider>
+    </>
   )
 }
 

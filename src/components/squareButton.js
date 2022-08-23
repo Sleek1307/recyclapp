@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, Image } from "react-native";
-import theme from "../theme";
+import theme from "../assets/themes/theme";
 
 const SquareButton = ({ url, text, textSize, action, squareWidth, squareHeight, style }) => {
 

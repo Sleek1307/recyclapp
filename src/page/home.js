@@ -1,27 +1,19 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
-import theme from "../theme";
+import theme from "../assets/themes/theme";
 import SquareButton from "../components/squareButton";
-import { useNavigate } from "react-router-native";
 
-const Home = () => {
-
-  const navigate = useNavigate();
-
+const Home = (props) => {
   return (
-    <View>
+    <View style={{ ...style.container }}>
       <View style={{
         ...style.circleOne
       }} />
       <View style={{
         ...style.circleTwo
       }} />
-      <Image
-        source={require('../../img/menu.png')}
-        style={{
-          ...style.burgerIcon
-        }}
-      />
+
+      {/* Menu */}
       <View style={{
         ...style.menu
       }}>
@@ -35,11 +27,13 @@ const Home = () => {
           ...style.menuRow
         }}>
           <SquareButton
+            action={() => { props.navigation.navigate('Map') }}
             url={require('../../img/maps.png')}
-            text={'Ver mapa'} action={() => navigate('/map')}
+            text={'Ver mapa'}
             squareHeight={theme.width.w_100 * 35 / 100}
             squareWidth={theme.width.w_100 * 35 / 100} />
           <SquareButton
+            action={() => { props.navigation.navigate('Content') }}
             url={require('../../img/open-book.png')}
             text={'Contenido'}
             squareHeight={theme.width.w_100 * 35 / 100}
@@ -50,11 +44,13 @@ const Home = () => {
           ...style.menuRow
         }}>
           <SquareButton
+            action={() => { props.navigation.navigate('History') }}
             url={require('../../img/history.png')}
             text={'Historial'}
             squareHeight={theme.width.w_100 * 35 / 100}
             squareWidth={theme.width.w_100 * 35 / 100} />
           <SquareButton
+            action={() => { props.navigation.navigate('Contact') }}
             url={require('../../img/entrevista.png')}
             text={'Contacto'}
             squareHeight={theme.width.w_100 * 35 / 100}
@@ -90,8 +86,7 @@ const style = StyleSheet.create({
   },
   menu: {
     zIndex: 1,
-    width: theme.width.w_100,
-    height: theme.height.h_100,
+    flex: 1,
     justifyContent: theme.align.center,
     alignItems: theme.align.center,
   },
