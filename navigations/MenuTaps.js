@@ -1,14 +1,14 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { default as theme } from "./../src/assets/themes/custom-theme.json";
+import { default as colors } from "./../src/assets/themes/custom-theme.json";
 import Icon from 'react-native-vector-icons/Ionicons'
 
 import Map from "../src/page/map";
 import History from "../src/page/history";
-import Contact from "../src/page/contact";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { StyleSheet, Text } from "react-native";
 import ContentTaps from "./ContentTaps";
+import { theme } from "../src/assets/themes/theme";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -18,14 +18,16 @@ const MenuTabs = () => {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarActiveTintColor: theme["color-primary-400"],
+        tabBarActiveTintColor: colors["color-primary-400"],
         tabBarStyle: {
           position: 'absolute',
-          bottom: 15,
           left: 20,
           right: 20,
+          bottom: 20,
           height: 90,
-          borderRadius: 15
+          borderRadius: 15,
+          alignItems: 'center',
+          backfaceVisibility:'hidden'
         }
       }} >
       <Screen name="Map" component={Map} options={{
@@ -44,7 +46,7 @@ const MenuTabs = () => {
         },
 
       }} />
-      {/* <Screen name="Content" component={ContentTaps} options={{
+      <Screen name="Content" component={ContentTaps} options={{
         tabBarLabel: 'Contenido',
         tabBarIcon: ({ color }) => {
           return (
@@ -58,7 +60,7 @@ const MenuTabs = () => {
             </TouchableWithoutFeedback>
           )
         }
-      }} /> */}
+      }} />
       <Screen name="History" component={History} options={{
         tabBarLabel: 'Historial',
         tabBarIcon: ({ color }) => {
@@ -70,21 +72,6 @@ const MenuTabs = () => {
             >
               <Icon name="time" size={30} color={color} />
               <Text style={{ color: color }}>Historial</Text>
-            </TouchableWithoutFeedback>
-          )
-        }
-      }} />
-      <Screen name="Contact" component={Contact} options={{
-        tabBarLabel: 'Contacto',
-        tabBarIcon: ({ color }) => {
-          return (
-            <TouchableWithoutFeedback
-              style={{
-                ...styles.BottomTabItem
-              }}
-            >
-              <Icon name="chatbubbles" size={30} color={color} />
-              <Text style={{ color: color }}>Contacto</Text>
             </TouchableWithoutFeedback>
           )
         }

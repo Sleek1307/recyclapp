@@ -1,15 +1,32 @@
 import React from "react";
-import { View, StyleSheet, Image, TouchableOpacity, Text, Alert } from "react-native";
+import { View, StyleSheet, Image } from "react-native";
 
 import { Layout } from "@ui-kitten/components";
+import { Formik } from "formik";
+import * as yup from 'yup';
 
 import theme from "../assets/themes/theme";
-import StyledInput from "../components/inputStyled";
-import ButtonStyled from "../components/buttonStyled";
+import StyledInput from "../components/inputs/styledInput";
+import StyledButton from "../components/buttons/styledButton";
 import StyledPassword from "../components/inputs/styledPassword";
 import StyledSelect from "../components/inputs/styledSelect";
+import Link from "../components/buttons/link";
+import Error from "../components/inputs/errorLabel";
+
 
 const Register = (props) => {
+
+  const reigsterSchema = yup.object().shape({
+    names: yup.string().required('El campo nombres no puede estar vacio'),
+    lastNames: yup.string().required('El campo apellidos no puede estar vacio'),
+    document: yup.string().required('El campo documento no puede estar vacio'),
+    password: yup.string().required('El campo contrasela no puede estar vacio'),
+    supportPass: yup.string()
+  })
+
+  const register = (values) => {
+    console.log(values);
+  }
 
   return (
     <View
@@ -18,19 +35,6 @@ const Register = (props) => {
         backgroundColor: theme.colors.whiteSmoke
       }}>
       {/* Lunares */}
-      <View style={{
-        ...style.circleOne
-      }} />
-      <View style={{
-        ...style.circleTwo
-      }} />
-      <View style={{
-        ...style.circleThree
-      }} />
-      <View style={{
-        ...style.circleFour
-      }} />
-
       {/* Logo */}
       <View style={{
         ...style.logo
@@ -43,60 +47,99 @@ const Register = (props) => {
       </View>
 
       {/* Formulario */}
-      <View style={{
-        ...style.form
-      }}>
-        <StyledInput
-          title={'Nombre completo'}
-          icon={'person'}
-        />
+      <Formik
+        onSubmit={register}
+        validationSchema={reigsterSchema}
+        initialValues={{
+          names: '',
+          lastNames: '',
+          document: '',
+          password: '',
+          supportPass: ''
+        }}
+        validate={(values) => {
+          let errors = {};
 
-        {/* Documento */}
+          if (values.supportPass !== values.password) {
+            errors.supportPass = 'Las contraseñas no coinciden'
+          }
 
-        <Layout style={{
-          width: '75%',
-          flexDirection: "row",
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          backgroundColor: 'transparent'
-        }}>
-          <StyledSelect
-            data={['CC', 'TI', 'NIT']}
-            width={'31%'}
-          />
-          <StyledInput
-            title={'Numero de documento'}
-            icon={'card'}
-            width={'65%'}
-          />
+          return errors
+        }}
+      >
+        {({ values, errors, touched, handleBlur, handleChange, handleSubmit }) => {
+          return (
+            <View style={{
+              ...style.form
+            }}>
+              <StyledInput
+                title={'Nombres'}
+                icon={'person'}
+                onBlur={handleBlur('names')}
+                onChangeText={handleChange('names')}
+                value={values.names}
+              />
+              {errors.names && touched.names ? <Error error={errors.names} /> : null}
+              <StyledInput
+                title={'Apellidos'}
+                icon={'person'}
+                onBlur={handleBlur('lastNames')}
+                onChangeText={handleChange('lastNames')}
+                value={values.lastNames}
+              />
+              {errors.lastNames && touched.lastNames ? <Error error={errors.lastNames} /> : null}
 
-        </Layout>
+              {/* Documento */}
+
+              <Layout style={{
+                flexDirection: "row",
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                backgroundColor: 'transparent',
+                width: '100%'
+              }}>
+                <StyledSelect
+                  data={['CC', 'TI', 'NIT']}
+                  width={'31%'}
+                />
+                <StyledInput
+                  title={'Numero de documento'}
+                  icon={'card'}
+                  width={'65%'}
+                  onBlur={handleBlur('document')}
+                  onChangeText={handleChange('document')}
+                  value={values.document}
+                />
+              </Layout>
+              {errors.document && touched.document ? <Error error={errors.document} /> : null}
 
 
-        <StyledPassword
-          title={'Contraseña'}
-        />
+              <StyledPassword
+                title={'Contraseña'}
+                onBlur={handleBlur('password')}
+                onChangeText={handleChange('password')}
+                value={values.password}
+              />
+              {errors.password && touched.password ? <Error error={errors.password} /> : null}
 
-        <StyledPassword
-          title={'Confirmar contraseña'}
-        />
+              <StyledPassword
+                title={'Confirmar contraseña'}
+                onBlur={handleBlur('supportPass')}
+                onChangeText={handleChange('supportPass')}
+                value={values.supportPass}
+              />
+              {errors.supportPass && touched.supportPass ? <Error error={errors.supportPass} /> : null}
 
+              <StyledButton
+                placeholder={'Registrarse'}
+                action={handleSubmit}
+              />
 
-        <ButtonStyled
-          placeholder={'Registrarse'}
-          action={() => alert('Has sido registrado')}
-        />
+              <Link text={'Iniciar sesion'} action={() => { props.navigation.navigate('Signin') }} />
+            </View>)
+        }}
+      </Formik>
 
-        <TouchableOpacity
-          onPress={() => {props.navigation.navigate('Signin')}}
-        >
-          <Text style={{
-            ...style.login
-          }}>
-            Iniciar sesion
-          </Text>
-        </TouchableOpacity>
-      </View>
     </View>)
 }
 
@@ -149,7 +192,8 @@ const style = StyleSheet.create({
     height: theme.height.h_100 / 100 * 60,
     width: theme.width.w_100,
     justifyContent: theme.align.center,
-    alignItems: theme.align.center
+    alignItems: theme.align.center,
+    paddingHorizontal: '12.5%'
   },
   register: {
     color: '#1f1f1f',

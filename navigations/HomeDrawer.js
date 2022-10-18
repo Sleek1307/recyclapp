@@ -4,14 +4,15 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { TouchableWithoutFeedback } from "react-native";
 
 import MenuTabs from "./MenuTaps";
-import Profile from "../src/page/Profile";
+import Profile from "../src/page/profile";
 import { default as theme } from "./../src/assets/themes/custom-theme.json"
 
 const Drawer = createDrawerNavigator();
 
 const HomeDrawer = (props) => {
   return (
-    <Drawer.Navigator initialRouteName="Home" screenOptions={{
+    <Drawer.Navigator initialRouteName="Home" 
+    screenOptions={{
       drawerActiveTintColor: theme["color-primary-700"],
       headerRight: () => {
         return (
@@ -22,6 +23,8 @@ const HomeDrawer = (props) => {
           </TouchableWithoutFeedback>
         )
       },
+      headerShadowVisible: false,
+      headerTransparent: true
     }}>
       <Drawer.Screen name="Home" component={MenuTabs} options={{
         drawerLabel: 'Inicio',

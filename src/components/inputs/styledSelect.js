@@ -5,7 +5,7 @@ import { StyleSheet } from "react-native";
 
 import theme from "../../assets/themes/theme";
 
-const StyledSelect = ({ width, data, }) => {
+const StyledSelect = ({ width, data }) => {
 
   const [selectedIndex, setSelectedIndex] = useState(new IndexPath(0))
 
@@ -22,7 +22,7 @@ const StyledSelect = ({ width, data, }) => {
       }}
     >
       {data.map((item, index) => {
-        return <SelectItem title={item} key={index} />
+        return <SelectItem style={{ borderRadius: 50, overflow: 'hidden' }} title={item} key={index} />
       })}
     </Select>
   )
@@ -30,11 +30,11 @@ const StyledSelect = ({ width, data, }) => {
 
 const styles = StyleSheet.create({
   formControl: {
-    marginVertical: 10,
-    borderRadius: 5,
-    borderWidth: 1,
+    marginVertical: 5,
+    borderRadius: 50,
+    overflow: 'hidden',
     borderColor: theme.colors.black,
-    elevation: 2
+    elevation: 2,
   },
   fontStyle: {
     color: '#000000',

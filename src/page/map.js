@@ -1,13 +1,15 @@
 import React from "react";
-import { ImageBackground, Image, StyleSheet, View, Text } from "react-native";
+import { ImageBackground, Image, StyleSheet, View, Text, Dimensions } from "react-native";
 
 import { Button } from "@ui-kitten/components";
-import Icon from 'react-native-vector-icons/Ionicons'
 
 import theme from "../assets/themes/theme";
+import StyledButton from "../components/buttons/styledButton";
+
+const width = theme.width.w_100;
+const height = theme.height.h_100
 
 const Map = () => {
-
   return (
     <View
       style={{
@@ -25,7 +27,6 @@ const Map = () => {
           }}
         />
       </View>
-      <View style={{ ...style.spacing }} />
       <View style={{ ...style.map }}>
         <View
           style={{
@@ -36,22 +37,30 @@ const Map = () => {
           <ImageBackground
             source={require('./../../img/map.png')}
             style={{
-              flex: 1,
               alignSelf: "stretch",
               justifyContent: "flex-end",
               alignItems: "center",
+              position: 'absolute',
+              top: 0,
+              bottom: 0,
+              right: 0,
+              left: 0
             }}
           >
-            <View style={{ ...style.card }}>
-              <Button
-                status={"primary"}
-                accessoryLeft={({color}) => {
-                  return < Icon name="add-circle" color={'#fafafa'} size={30}/>
-                }}
-              >
-                Nuevo servicio
-              </Button>
+
+            <View
+              style={{
+                ...style.card
+              }}
+            >
+              <StyledButton
+                placeholder={'Hola mundo'}
+                icon={'add-circle'}
+                iconColor='#fafafa'
+              />
             </View>
+
+
           </ImageBackground>
         </View>
       </View>
@@ -64,7 +73,7 @@ const style = StyleSheet.create({
     flex: 1,
   },
   profile: {
-    flex: 1,
+    height: height / 3,
     justifyContent: theme.align.center,
     alignItems: theme.align.center,
     backgroundColor: theme.colors.secondary,
@@ -80,9 +89,6 @@ const style = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 4,
   },
-  spacing: {
-    flex: 2,
-  },
   map: {
     position: 'absolute',
     top: theme.height.h_25,
@@ -92,7 +98,10 @@ const style = StyleSheet.create({
   },
   card: {
     borderRadius: 15,
-    marginBottom: '25%',
+    marginBottom: 120,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 })
 

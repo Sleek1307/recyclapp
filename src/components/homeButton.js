@@ -19,10 +19,7 @@ const HomeButton = () => {
       style={{
         ...style.squareStyle
       }}
-      
     />
-
-    
   )
 }
 

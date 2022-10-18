@@ -1,62 +1,65 @@
-import { Card, Text } from "@ui-kitten/components";
 import React from "react";
-import { Image, ScrollView, StyleSheet, TouchableHighlight, TouchableOpacity, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 
 import theme from "../assets/themes/theme";
-import Badge from "../components/badge";
+import { CardPost } from "../components/card";
 
-const Content = () => {
+const Content = (props) => {
+
+  const data = [
+    {
+      title: 'Titulo',
+      body: 'minim non enim anim in do ut nulla cillum tempor culpa eiusmod aute esse eu incididunt consectetur eu et anim enim voluptate pariatur magna dolor',
+      footer: 'FOOTER',
+      img: require('./../../img/dummie.png')
+    },
+    {
+      title: 'Step 1',
+      body: 'minim non enim anim in do ut nulla cillum tempor culpa eiusmod aute esse eu incididunt consectetur eu et anim enim voluptate pariatur magna dolor',
+      footer: 'FOOTER',
+      img: require('./../../img/dummie.png')
+    },
+    {
+      title: 'Step 2',
+      body: 'minim non enim anim in do ut nulla cillum tempor culpa eiusmod aute esse eu incididunt consectetur eu et anim enim voluptate pariatur magna dolor',
+      footer: 'FOOTER',
+      img: require('./../../img/dummie.png')
+    }
+  ]
+
   return (
     <View style={{
-      marginBottom: '25%',
+      marginBottom: 120,
       marginHorizontal: 20,
       borderRadius: 15,
       overflow: "hidden"
     }}>
       <ScrollView contentContainerStyle={{
-        ...style.scroll
-      }}>
-        <Card
-          header={<Text category={"h6"}>Titulo</Text>}
-          style={{ ...style.card, marginBottom: 15 }}
-        >
-          <Image
-            source={require('./../../img/dummie.png')}
-            style={{ ...style.postImg }}
-          />
-          <Text>in nisi pariatur consectetur proident est occaecat velit amet do laboris mollit fugiat eu ipsum anim laborum ut ullamco tempor amet pariatur in tempor nisi...</Text>
-          <TouchableHighlight><Text style={{ ...style.more }} t>Ver mas</Text></TouchableHighlight>
+        ...style.scroll,
+      }}
+        showsVerticalScrollIndicator={false}
+      >
+        {
+          data.map((item, index) => {
 
-        </Card >
+            return (
+              <CardPost
+                key={index}
+                data={item}
+                navigate={props.navigation.navigate}
+                style={{
+                  marginBottom: (index === (data.length - 1) ? 0 : 15)
+                }}
+              />)
+          })
+        }
 
-        <Card
-          header={<Text category={"h6"}>Titulo</Text>}
-          footer={<Text status={"basic"}>Este es el footer</Text>}
-          style={{ ...style.card, marginBottom: 0 }}
-        >
-          <Image
-            source={require('./../../img/dummie.png')}
-            style={{ ...style.postImg }}
-          />
-          <Text>in nisi pariatur consectetur proident est occaecat velit amet do laboris mollit fugiat eu ipsum anim laborum ut ullamco tempor amet pariatur in tempor nisi...</Text>
-          <TouchableHighlight><Text style={{ ...style.more }} t>Ver mas</Text></TouchableHighlight>
-        </Card>
       </ScrollView >
     </View >
   )
 }
 
 const style = StyleSheet.create({
-  card: {
-    borderRadius: 15,
-  },
-  postImg: {
-    width: '100%',
-    height: 250,
-  },
-  more: {
-    color: theme.colors.primary,
-  },
   scroll: {
     justifyContent: theme.align.end,
     borderRadius: 15,

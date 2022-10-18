@@ -1,8 +1,8 @@
 import React, { useState, } from "react";
 
 
-import { ViewPager, Card, Text, Image, Layout } from "@ui-kitten/components";
-import { Dimensions, FlatList, StyleSheet, View } from "react-native";
+import { Image } from "@ui-kitten/components";
+import { StyleSheet, View } from "react-native";
 import Carousel from "react-native-snap-carousel";
 
 import theme from "../assets/themes/theme";
@@ -57,7 +57,7 @@ const style = StyleSheet.create({
     width: '100%'
   },
   postImg: {
-    width: '100%',
+    width: 300,
     height: 250,
   },
   more: {

@@ -1,19 +1,27 @@
 import React from "react";
-import { Text, View } from "react-native";
-import FooterMenu from "../components/footerMenu";
-import HomeButton from "../components/homeButton";
+import { ScrollView, Text, View } from "react-native";
 import theme from "../assets/themes/theme";
+import HistoryCard from "../components/cards/historyCard";
 
-const History = () => {
+const History = ({navigation}) => {
     return (
         <View style={{
-            flex: 1,
-            justifyContent: theme.align.center,
-            alignItems: theme.align.center
-        }}>
-            <Text>
-                Estas en el historial de aportes
-            </Text>
+            marginBottom: 120,
+            marginTop: 60,
+            marginHorizontal: 20,
+            borderRadius: 15,
+            overflow: "hidden"
+          }}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+            <HistoryCard navigation={navigation}/>
+            <HistoryCard navigation={navigation}/>
+            <HistoryCard navigation={navigation}/>
+            <HistoryCard navigation={navigation}/>
+            <HistoryCard navigation={navigation}/>
+            <HistoryCard navigation={navigation}/>
+            <HistoryCard navigation={navigation}/>
+            <HistoryCard navigation={navigation}/>
+        </ScrollView>
         </View>
     )
 }

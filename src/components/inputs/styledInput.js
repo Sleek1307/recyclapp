@@ -4,14 +4,11 @@ import { StyleSheet } from 'react-native';
 import { Input } from '@ui-kitten/components';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import theme from '../assets/themes/theme';
-
 const styles = StyleSheet.create({
   formControl: {
-    width: '75%',
-    marginVertical: 10,
+    marginVertical: 5,
     borderWidth: 1,
-    borderRadius: 15,
+    borderRadius: 50,
     elevation: 2
   },
   fontStyle: {
@@ -20,7 +17,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const StyledInput = ({ title, icon, width }) => {
+const StyledInput = ({ title, icon, width, onChangeText, onBlur, value }) => {
   return (
     <Input
       style={
@@ -34,6 +31,9 @@ const StyledInput = ({ title, icon, width }) => {
       placeholder={title}
       size='large'
       accessoryRight={<Icon name={icon} size={25} />}
+      value={value}
+      onChangeText={onChangeText}
+      onBlur={onBlur}
     />
   );
 }

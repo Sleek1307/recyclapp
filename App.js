@@ -10,7 +10,8 @@ import * as eva from '@eva-design/eva';
 //Custom components
 import styles from './src/styles/styles';
 import { default as theme } from './src/assets/themes/custom-theme.json'
-import SignStack from './navigations/SignStack';
+import SignStack from './navigations/GlobalStack';
+import ArticleStack from './navigations/ArticleStack';
 
 const App = () => {
   return (

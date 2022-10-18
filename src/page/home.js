@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import theme from "../assets/themes/theme";
 import SquareButton from "../components/squareButton";
 
-const Home = (props) => {
   return (
     <View style={{ ...style.container }}>
       <View style={{
@@ -59,7 +58,7 @@ const Home = (props) => {
       </View>
     </View>
   )
-}
+
 
 const style = StyleSheet.create({
   circleOne: {

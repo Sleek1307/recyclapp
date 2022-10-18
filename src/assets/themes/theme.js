@@ -34,6 +34,9 @@ const theme = {
         semiBold: '600',
         bold: '700'
     },
+    text:{
+        
+    },
     spacing: {
         low: 15,
         medium: 30,

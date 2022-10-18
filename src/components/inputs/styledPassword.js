@@ -8,10 +8,9 @@ import { TouchableWithoutFeedback } from "@ui-kitten/components/devsupport";
 
 const styles = StyleSheet.create({
   formControl: {
-    width: '75%',
-    marginVertical: 10,
+    marginVertical: 5,
     borderWidth: 1,
-    borderRadius: 15,
+    borderRadius: 50,
     elevation: 2
   },
   fontStyle: {
@@ -31,7 +30,7 @@ const PassIcon = ({ showPass, action }) => {
     </TouchableWithoutFeedback>)
 }
 
-const StyledPassword = ({ title }) => {
+const StyledPassword = ({ title, onChangeText, onBlur, value }) => {
 
   const [showPass, setShowPass] = useState(false)
 
@@ -42,6 +41,9 @@ const StyledPassword = ({ title }) => {
     placeholder={title}
     size='large'
     accessoryRight={<PassIcon showPass={showPass} action={setShowPass} />}
+    value={value}
+    onChangeText={onChangeText}
+    onBlur={onBlur}
   />
 }
 
