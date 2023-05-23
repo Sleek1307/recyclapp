@@ -1,18 +1,17 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { default as colors } from "./../src/assets/themes/custom-theme.json";
+import { default as colors } from "../src/assets/themes/custom-theme.json";
 import Icon from 'react-native-vector-icons/Ionicons'
 
-import Map from "../src/page/map";
+import Home from "../src/page/home";
 import History from "../src/page/history";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { StyleSheet, Text } from "react-native";
-import ContentTaps from "./ContentTaps";
-import { theme } from "../src/assets/themes/theme";
+import ContentTabs from "./ContentTabs";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
-const MenuTabs = () => {
+const MenuTabs = ({data}) => {
   return (
     <Navigator
       screenOptions={{
@@ -30,8 +29,8 @@ const MenuTabs = () => {
           backfaceVisibility:'hidden'
         }
       }} >
-      <Screen name="Map" component={Map} options={{
-        tabBarLabel: 'Mapa',
+      <Screen name="Home" component={Home} options={{
+        tabBarLabel: 'Inicio',
         tabBarIcon: ({ color }) => {
           return (
             <TouchableWithoutFeedback
@@ -40,15 +39,17 @@ const MenuTabs = () => {
               }}
             >
               <Icon name="map" size={30} color={color} />
-              <Text style={{ color: color }}>Mapa</Text>
+              <Text style={{ color: color }}>Home</Text>
             </TouchableWithoutFeedback>
           )
         },
-
       }} />
-      <Screen name="Content" component={ContentTaps} options={{
+      <Screen name="Content" component={ContentTabs} options={{
         tabBarLabel: 'Contenido',
         tabBarIcon: ({ color }) => {
+
+          console.log(color);
+
           return (
             <TouchableWithoutFeedback
               style={{

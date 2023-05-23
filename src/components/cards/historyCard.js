@@ -3,32 +3,32 @@ import React from "react";
 import { StyleSheet, TouchableHighlight, TouchableOpacity, View } from "react-native";
 import theme from "../../assets/themes/theme";
 
-const HistoryCard = ({ data , navigation}) => {
+const HistoryCard = ({ data, action }) => {
   return (
-
     <TouchableOpacity
       style={{
-        ...style.card
+        ...style.card,
+        backgroundColor: data.recolector === null ? '#a9a9a9' : '#fafafa'
       }}
-      onPress ={() => navigation.navigate('Service')}
+      onPress={action}
     >
       <View>
         <Text>
-          Origen: {'Julian Alveiro Mira'}
+          Origen: {data.origin.name + ' ' + data.origin.lastName}
         </Text>
         <Text category={"label"} style={{ color: theme.colors.primary }}>
-          XXXXXXXX
+          {data.origin.id}
         </Text>
 
         <Text>
-          Operario: {'John Doe'}
+          Recolector: {data.recolector === null ? '': (data.recolector.name + ' ' + data.recolector.lastName)}
         </Text>
         <Text category={"label"} style={{ color: theme.colors.primary }}>
-          XXXXXXXX
+          {data.recolector === null ? 'Sin recolector asignado': (data.recolector.id)}
         </Text>
 
         <Text category={"label"} style={{ color: theme.colors.primary, textAlign: "right" }}>
-          22/08/22-07:30
+          {new Date().toLocaleDateString(data.createdAt)}
         </Text>
       </View>
 
@@ -43,7 +43,6 @@ const style = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     marginBottom: 10,
-    backgroundColor: '#ffffff',
   }
 })
 

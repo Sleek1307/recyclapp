@@ -1,0 +1,37 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/Baloo2-Bold.ttf",
+      "sha1": "f8d93a8fbc0104cb1814230e952c5f864c532a4b"
+    },
+    {
+      "path": "src/assets/fonts/Baloo2-ExtraBold.ttf",
+      "sha1": "c375549059331304eb8e83121c3dbb5c8cd10345"
+    },
+    {
+      "path": "src/assets/fonts/Baloo2-Medium.ttf",
+      "sha1": "0c8db0b372caeea37f43a43b8b4773e8c386c964"
+    },
+    {
+      "path": "src/assets/fonts/Baloo2-Regular.ttf",
+      "sha1": "a58508e77570775950005c50f9653a17243aa6d1"
+    },
+    {
+      "path": "src/assets/fonts/Baloo2-SemiBold.ttf",
+      "sha1": "d80f6e2549f67d9032d1477e4244a8f13cc9d718"
+    },
+    {
+      "path": "src/assets/fonts/Baloo2-VariableFont_wght.ttf",
+      "sha1": "0566a71e781ae18c27db4a6fee34b0d236437885"
+    },
+    {
+      "path": "src/assets/fonts/OFL.txt",
+      "sha1": "93de6aea1672ea768552f79e99aa24e483e2a262"
+    },
+    {
+      "path": "src/assets/fonts/README.txt",
+      "sha1": "1523dcad8b34c884c768cc6d084def501d552605"
+    }
+  ]
+}

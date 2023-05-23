@@ -1,29 +1,48 @@
 //React deppendencies
 import React from 'react';
-import NavigationContainer from "@react-navigation/native/lib/module/NavigationContainer"
+import NavigationContainer from '@react-navigation/native/lib/module/NavigationContainer';
 import 'react-native-gesture-handler';
 
 //External dependencies
-import { ApplicationProvider } from '@ui-kitten/components';
-import * as eva from '@eva-design/eva';
-
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {ThemeProvider} from 'react-native-elements';
 //Custom components
-import styles from './src/styles/styles';
-import { default as theme } from './src/assets/themes/custom-theme.json'
+import {default as theme} from './src/assets/themes/custom-theme.json';
 import SignStack from './navigations/GlobalStack';
-import ArticleStack from './navigations/ArticleStack';
+import store from './redux/store';
+import {Provider} from 'react-redux';
+import {style} from './src/assets/themes/style';
+
+const customTheme = {
+  Button: {
+    buttonStyle: {
+      ...style.button,
+    },
+    titleStyle: {
+      ...style.titleButton,
+    },
+  },
+  Card: {
+    containerStyle: {
+      ...style.card,
+    },
+  },
+};
 
 const App = () => {
   return (
     <>
-      <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
-        <NavigationContainer>
-          <SignStack />
-        </NavigationContainer>
-      </ApplicationProvider>
+      <Provider store={store}>
+        <SafeAreaProvider>
+          <ThemeProvider theme={customTheme}>
+            <NavigationContainer>
+              <SignStack />
+            </NavigationContainer>
+          </ThemeProvider>
+        </SafeAreaProvider>
+      </Provider>
     </>
-  )
-}
-
+  );
+};
 
 export default App;

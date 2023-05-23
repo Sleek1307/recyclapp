@@ -1,209 +1,249 @@
-import { Card, Text } from "@ui-kitten/components";
-import { Formik } from "formik";
-import React, { useState } from "react";
-import { View, Image, StyleSheet, ScrollView } from "react-native";
+import {Formik} from 'formik';
+import React from 'react';
+import {View, StyleSheet, ScrollView, Text, ToastAndroid} from 'react-native';
+import {connect} from 'react-redux';
+import {Button} from 'react-native-elements';
 
-import { AirbnbRating } from "react-native-ratings";
 import * as yup from 'yup';
 
-import theme from "../assets/themes/theme";
-import Link from "../components/buttons/link";
-import StyledButton from "../components/buttons/styledButton";
-import StyledInput from "../components/inputs/styledInput";
-import Error from "../components/inputs/errorLabel"
-const height = theme.height.h_100
+import CustomInput from '../components/inputs/input';
+import Error from '../components/inputs/errorLabel';
+import Avatar from '../components/cards/avatar';
+import {
+  createAddress,
+  updateAddress,
+  updateUserData,
+} from '../Services/user.service';
+import {getUserData} from '../Services/user.service';
+import theme from '../assets/themes/theme';
+import {useEffect} from 'react';
+import {useState} from 'react';
 
-const Profile = (props) => {
+const Profile = props => {
+  const user = props.response_login.user;
+  const [initialValues, setInitialValues] = useState(null);
+  const roles = {
+    1: 'Administrador',
+    2: 'Moderador',
+    3: 'Origen',
+  };
 
-  const rating = 2;
-
+  const requiredMessage = '*Campo obligatorio';
   const profileSchema = yup.object().shape({
-    district: yup.string().required('El campo barrio no puede estar vacio'),
-    address: yup.string().required('El campo direccion no puede estar vacio'),
-    email: yup.string().required('El campo email no puede estar vacio').email('Debe ser un email valido'),
-    phone: yup.number().required('EL campo numero no puede estar vacio').typeError('El campo numero no puede tener letras')
-  })
+    road: yup.string().required(requiredMessage),
+    streetNumber: yup.string().required(requiredMessage),
+    houseNumber: yup.string().required(requiredMessage),
+    note: yup.string(),
+  });
 
-  const editProfile = (values) => {
-    console.log(values)
-  }
+  const getUserEditableData = async token => {
+    try {
+      const response = await getUserData(token);
+      const {contractNumber, email, name, lastName, phoneNumber} =
+        response.data.user;
 
-  const dinamicColor = (ratingValue) => {
-    if (ratingValue <= 2) {
-      return "red"
-    } else if (ratingValue <= 4) {
-      return 'yellow'
-    } else {
-      return 'green'
+      setInitialValues({
+        contractNumber: contractNumber,
+        email: email,
+        name: name,
+        lastName: lastName,
+        phoneNumber: phoneNumber,
+      });
+    } catch (error) {
+      console.log(error.response);
     }
-  }
+  };
+
+  const editProfile = async (values, token) => {
+    // if (user.address === null) {
+    //   try {
+    //     await createAddress({ data: { ...values, userId: user.id } }, props.response_login.token);
+    //     ToastAndroid.show('Direccion actualizada correctamente', ToastAndroid.SHORT)
+    //   } catch (error) {
+    //     console.log(error.response);
+    //   }
+    // } else {
+    //   try {
+    //     await updateAddress({ data: { ...values } }, user.address.id, props.response_login.token);
+    //     ToastAndroid.show('Direccion actualizada correctamente', ToastAndroid.SHORT);
+    //   } catch (error) {
+    //     console.log(error.response);
+    //     // ToastAndroid.show(error.response.data.msg)
+    //   }
+    // }
+
+    console.log('Estas actualizando tu usuario..');
+    try {
+      await updateUserData(values, token);
+      ToastAndroid.show(
+        'Usuario actualizado correctamente',
+        ToastAndroid.SHORT,
+      );
+      getUserData(props.response_login.token);
+    } catch (error) {
+      ToastAndroid.show(
+        'Algo ha ido mal, intentalo mas tarde',
+        ToastAndroid.SHORT,
+      );
+    }
+  };
+
+  useEffect(() => {
+    getUserEditableData(props.response_login.token);
+  }, []);
 
   return (
     <>
-      <View
-        style={{
-          flex: 1,
-        }}
-      >
-        <View style={{
-          ...style.profile
-        }}>
-          <Image
-            source={require('../../img/user.png')}
-            style={{
-              width: 150,
-              height: 150,
-            }}
-          />
+      <View style={style.container}>
+        <View style={style.avatarContainer}>
+          <Avatar image={require('../../img/JULIAN.png')} />
+          <View style={style.avatarInfo}>
+            <Text
+              style={{
+                ...style.avatarTitle,
+              }}>
+              {user.name}
+            </Text>
+            <Text style={style.avatarSubtitle}>{user.email}</Text>
+            <Text style={style.avatarSubtitle}>{roles[user.rol]}</Text>
+          </View>
         </View>
 
-        <View
-          style={{
-            flex: 2,
-            borderRadius: 15,
-            overflow: 'hidden'
-          }}
-        >
-          <View style={{
-            flex: 1,
-            margin: 20,
-            borderRadius: 15,
-            overflow: 'hidden'
-          }}>
-            <ScrollView
-              contentContainerStyle={{
-                borderRadius: 15,
-              }}
-              showsVerticalScrollIndicator={false}
-            >
-              <Formik
-                initialValues={{
-                  district: '',
-                  address: '',
-                  email: '',
-                  phone: ''
-                }}
-                validationSchema={profileSchema}
-                onSubmit={editProfile}
-              >
-
-                {({ values, errors, touched, handleBlur, handleChange, handleSubmit }) => {
-                  return (
-                    <Card
-                      style={{
-                        borderRadius: 20,
-                        marginVertical: 5
-                      }}
-                      touchSoundDisabled
-                    >
-                      <View>
-                        <Text
-                          category="label"
-                        >
-                          Direccion
-                        </Text>
-                        <StyledInput
-                          title={'Direccion'}
-                          value={values.address}
-                          onBlur={handleBlur('address')}
-                          onChangeText={handleChange('address')}
+        <View style={style.formContainer}>
+          <View style={style.form}>
+            <ScrollView showsVerticalScrollIndicator={false}>
+              {initialValues !== null && (
+                <Formik
+                  initialValues={initialValues}
+                  onSubmit={values => {
+                    console.log('Modificando');
+                    editProfile(values, props.response_login.token);
+                  }}
+                  // validationSchema={profileSchema}
+                >
+                  {({
+                    errors,
+                    values,
+                    touched,
+                    handleBlur,
+                    handleChange,
+                    handleSubmit,
+                  }) => {
+                    return (
+                      <View
+                        disabled={true}
+                        style={{
+                          justifyContent: theme.align.center,
+                          alignItems: theme.align.center,
+                        }}>
+                        <CustomInput
+                          placeholder={'Nombres'}
+                          icon={'user'}
+                          onBlur={handleBlur('name')}
+                          onChangeText={handleChange('name')}
+                          value={values.name}
                         />
-                        {errors.address && touched.address ? <Error error={errors.address} /> : null}
-                        <StyledInput
-                          title={'Barrio'}
-                          value={values.district}
-                          onBlur={handleBlur('district')}
-                          onChangeText={handleChange('district')}
-                        />
-                        {errors.district && touched.district ? <Error error={errors.district} /> : null}
-                      </View>
+                        {errors.name && touched.name ? (
+                          <Error error={errors.name} />
+                        ) : null}
 
-                      <View>
-                        <Text
-                          category="label"
-                        >
-                          Contacto
-                        </Text>
-                        <StyledInput
-                          title={'Email'}
-                          value={values.email}
+                        <CustomInput
+                          placeholder={'Apellidos'}
+                          icon={'user'}
+                          onBlur={handleBlur('lastNames')}
+                          onChangeText={handleChange('lastNames')}
+                          value={values.lastName}
+                        />
+                        {errors.lastName && touched.lastName ? (
+                          <Error error={errors.lastName} />
+                        ) : null}
+
+                        <CustomInput
+                          placeholder={'Correo electronico'}
+                          icon={'mail'}
                           onBlur={handleBlur('email')}
                           onChangeText={handleChange('email')}
+                          value={values.email}
                         />
-                        {errors.email && touched.email ? <Error error={errors.email} /> : null}
-                        <StyledInput
-                          title={'Telefono'}
-                          value={values.phone}
-                          onBlur={handleBlur('phone')}
-                          onChangeText={handleChange('phone')}
+                        {errors.email && touched.email ? (
+                          <Error error={errors.email} />
+                        ) : null}
+
+                        <CustomInput
+                          placeholder={'Numero de telefono'}
+                          icon={'phone'}
+                          onBlur={handleBlur('phoneNumber')}
+                          onChangeText={handleChange('phoneNumber')}
+                          value={values.phoneNumber}
                         />
-                        {errors.phone && touched.phone ? <Error error={errors.phone} /> : null}
-                      </View>
+                        {errors.phoneNumber && touched.phoneNumber ? (
+                          <Error error={errors.phoneNumber} />
+                        ) : null}
 
-                      <View
-                        style={{
-                          width: '100%',
-                          alignItems: 'center'
-                        }}
-                      >
-                        <StyledButton placeholder={'Guardar cambios'} action={handleSubmit} />
+                        {/* <CustomInput
+                        placeholder={'Direccion'}
+                        icon={'home'}
+                        onBlur={handleBlur('address')}
+                        onChangeText={handleChange('address')}
+                        value={values.name}
+                      />
+                      {errors.houseNumber && touched.streetNumber ? (
+                        <Error error={errors.houseNumber} />
+                      ) : null} */}
 
-                      </View>
-
-                      <View
-                        style={{
-                          width: '100%',
-                        }}
-                      >
-                        <Link
-                          text={'Cambiar contraseña'}
+                        <CustomInput
+                          placeholder={'Numero de contrato'}
+                          icon={'file-text'}
+                          onBlur={handleBlur('contractNumber')}
+                          onChangeText={handleChange('contractNumber')}
+                          value={values.contractNumber}
                         />
-                      </View>
-                    </Card>
-                  )
-                }}
+                        {errors.contractNumber && touched.contractNumber ? (
+                          <Error error={errors.contractNumber} />
+                        ) : null}
 
-              </Formik>
-              <Card
-                style={{
-                  borderRadius: 20,
-                  marginVertical: 5
-                }}
-                touchSoundDisabled
-              >
-                <Text
-                  category="h2"
-                  style={{
-                    fontWeight: '200'
+                        {/* <TextArea
+                          title={'Agrega una nota que describa tu casa'}
+                          onBlur={handleBlur('note')}
+                          onChangeText={handleChange('note')}
+                          value={values.note}
+                          lines={6}
+                        />
+                        {errors.note && touched.note ? <Error error={errors.note} /> : null} */}
+                        <Button onPress={handleSubmit} title="Modificar" />
+                      </View>
+                    );
                   }}
-                >
-                  Calificacion:
-                </Text>
-
-                <AirbnbRating
-                  defaultRating={rating}
-                  isDisabled
-                  reviewColor={dinamicColor(rating)}
-                  selectedColor={dinamicColor(rating)}
-                />
-              </Card>
+                </Formik>
+              )}
             </ScrollView>
           </View>
         </View>
       </View>
     </>
-  )
-}
+  );
+};
 
 const style = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  avatarContainer: {
+    width: '100%',
+    flex: 0.5,
+    borderBottomEndRadius: 40,
+    borderBottomStartRadius: 40,
+    backgroundColor: theme.colors.secondary,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   profile: {
     flex: 1,
     justifyContent: theme.align.center,
     alignItems: theme.align.center,
     backgroundColor: theme.colors.secondary,
-    borderBottomStartRadius: theme.width.w_100 * 15 / 100,
-    borderBottomEndRadius: theme.width.w_100 * 15 / 100,
-    zIndex: 1,
+    borderBottomStartRadius: (theme.width.w_100 * 15) / 100,
+    borderBottomEndRadius: (theme.width.w_100 * 15) / 100,
     shadowColor: theme.colors.black,
     shadowOffset: {
       width: 0,
@@ -213,6 +253,41 @@ const style = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 4,
   },
-})
+  formContainer: {
+    flex: 0.5,
+    position: 'relative',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  form: {
+    position: 'absolute',
+    backgroundColor: theme.colors.white,
+    width: '80%',
+    height: '100%',
+    borderRadius: 20,
+    top: '-10%',
+    elevation: 5,
+    padding: 5,
+  },
+  avatarInfo: {
+    alignItems: 'center',
+  },
+  avatarTitle: {
+    fontFamily: theme.fonts.baloo.semiBold,
+    fontSize: theme.fontSizes.subTitle,
+  },
+  avatarSubtitle: {
+    fontFamily: theme.fonts.baloo.regular,
+    fontSize: theme.fontSizes.note,
+  },
+});
 
-export default Profile;
+const mapStateToProps = state => {
+  return {...state.authReducer};
+};
+
+const mapDispatchToProps = dispatch => {
+  return {};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

@@ -1,16 +1,38 @@
 import { Text } from "@ui-kitten/components";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
+import { connect } from "react-redux";
 
 import theme from "../assets/themes/theme";
+import { getServiceById } from "../Services/service.services"
 
-const Service = () => {
+const Service = ({ route, navigation, response_login }) => {
+
+  const { token } = response_login;
+  const [data, setData] = useState({});
+
+  console.log(route);
+
+  const fetchService = async (id, token) => {
+    try {
+      const response = await getServiceById(id, token)
+      setData(response.data.data);
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  }
+
+  useEffect(() => {
+    fetchService(route.params.id, token)
+  }, [])
+
   return (
+    Object.entries(data).length > 0 &&
     <View style={{ flex: 1, padding: 30 }}>
       <Text category={"h3"} style={{
         textDecorationLine: 'underline'
       }} >
-        Servicio N° 0000001
+        Servicio N° {data.id}
       </Text>
       <Text category={"h4"}
         status="primary"
@@ -23,7 +45,7 @@ const Service = () => {
       <Text category={"h6"} style={{
         marginStart: 10
       }}>
-        Julian Alveiro Mira - 1000305347
+        {data.origin.name + ' ' + data.origin.lastName + ' ' + data.origin.id}
       </Text>
       <Text category={"h4"}
         status="primary"
@@ -31,12 +53,12 @@ const Service = () => {
           ...style.subheading
         }}
       >
-        Operario
+        Recolector
       </Text>
       <Text category={"h6"} style={{
         marginStart: 10
       }}>
-        Julian Alveiro Mira -1000305347
+        {data.recolector === null ? 'Sin recolector asignado' : data.recolector.name + ' ' + data.recolector.lastName + ' ' + data.recolector.id}
       </Text>
       <View style={{
         flex: 1,
@@ -56,6 +78,105 @@ const Service = () => {
             width: '100%'
           }}
         >
+          {data.Products.map(product => {
+            console.log(product);
+            return <View style={{ paddingHorizontal: 40 }}>
+
+              <Text category={'h6'} style={{ textAlign: "left", textDecorationLine: "underline" }}>
+                #1 {product.name}
+              </Text>
+              <Text category={"p1"} style={{ marginStart: 15 }}>
+                Cantidad: {product.ServiceProducts.amount === null ? 'Producto sin pesar' : product.ServiceProducts.amount}
+              </Text>
+              <View style={{ flexDirection: "row", alignItems: 'center', height: 35 }}>
+                <Text category={"p1"} style={{ marginStart: 15, textAlignVertical: "center" }}>
+                  Categoria:  {product.categoria.name}
+                </Text>
+                <View
+                  style={{
+                    height: 30,
+                    width: 30,
+                    marginStart: 10,
+                    borderRadius: 5,
+                    backgroundColor: 'blue'
+                  }}
+                ></View>
+              </View>
+            </View>
+          })}
+
+          <View style={{ paddingHorizontal: 40 }}>
+
+            <Text category={'h6'} style={{ textAlign: "left", textDecorationLine: "underline" }}>
+              #1 Botellas plasticas
+            </Text>
+            <Text category={"p1"} style={{ marginStart: 15 }}>
+              Cantidad: 150Gr
+            </Text>
+            <View style={{ flexDirection: "row", alignItems: 'center', height: 35 }}>
+              <Text category={"p1"} style={{ marginStart: 15, textAlignVertical: "center" }}>
+                Categoria:
+              </Text>
+              <View
+                style={{
+                  height: 30,
+                  width: 30,
+                  marginStart: 10,
+                  borderRadius: 5,
+                  backgroundColor: 'blue'
+                }}
+              ></View>
+            </View>
+
+          </View>
+          <View style={{ paddingHorizontal: 40 }}>
+
+            <Text category={'h6'} style={{ textAlign: "left", textDecorationLine: "underline" }}>
+              #1 Botellas plasticas
+            </Text>
+            <Text category={"p1"} style={{ marginStart: 15 }}>
+              Cantidad: 150Gr
+            </Text>
+            <View style={{ flexDirection: "row", alignItems: 'center', height: 35 }}>
+              <Text category={"p1"} style={{ marginStart: 15, textAlignVertical: "center" }}>
+                Categoria:
+              </Text>
+              <View
+                style={{
+                  height: 30,
+                  width: 30,
+                  marginStart: 10,
+                  borderRadius: 5,
+                  backgroundColor: 'blue'
+                }}
+              ></View>
+            </View>
+
+          </View>
+          <View style={{ paddingHorizontal: 40 }}>
+
+            <Text category={'h6'} style={{ textAlign: "left", textDecorationLine: "underline" }}>
+              #1 Botellas plasticas
+            </Text>
+            <Text category={"p1"} style={{ marginStart: 15 }}>
+              Cantidad: 150Gr
+            </Text>
+            <View style={{ flexDirection: "row", alignItems: 'center', height: 35 }}>
+              <Text category={"p1"} style={{ marginStart: 15, textAlignVertical: "center" }}>
+                Categoria:
+              </Text>
+              <View
+                style={{
+                  height: 30,
+                  width: 30,
+                  marginStart: 10,
+                  borderRadius: 5,
+                  backgroundColor: 'blue'
+                }}
+              ></View>
+            </View>
+
+          </View>
           <View style={{ paddingHorizontal: 40 }}>
 
             <Text category={'h6'} style={{ textAlign: "left", textDecorationLine: "underline" }}>
@@ -149,102 +270,6 @@ const Service = () => {
                 }}
               ></View>
             </View>
-
-          </View>
-          <View style={{ paddingHorizontal: 40 }}>
-
-            <Text category={'h6'} style={{ textAlign: "left", textDecorationLine: "underline" }}>
-              #1 Botellas plasticas
-            </Text>
-            <Text category={"p1"} style={{ marginStart: 15 }}>
-              Cantidad: 150Gr
-            </Text>
-            <View style={{ flexDirection: "row", alignItems: 'center', height: 35 }}>
-              <Text category={"p1"} style={{ marginStart: 15, textAlignVertical: "center" }}>
-                Categoria:
-              </Text>
-              <View
-                style={{
-                  height: 30,
-                  width: 30,
-                  marginStart: 10,
-                  borderRadius: 5,
-                  backgroundColor: 'blue'
-                }}
-              ></View>
-            </View>
-          </View>
-          <View style={{ paddingHorizontal: 40 }}>
-
-            <Text category={'h6'} style={{ textAlign: "left", textDecorationLine: "underline" }}>
-              #1 Botellas plasticas
-            </Text>
-            <Text category={"p1"} style={{ marginStart: 15 }}>
-              Cantidad: 150Gr
-            </Text>
-            <View style={{ flexDirection: "row", alignItems: 'center', height: 35 }}>
-              <Text category={"p1"} style={{ marginStart: 15, textAlignVertical: "center" }}>
-                Categoria:
-              </Text>
-              <View
-                style={{
-                  height: 30,
-                  width: 30,
-                  marginStart: 10,
-                  borderRadius: 5,
-                  backgroundColor: 'blue'
-                }}
-              ></View>
-            </View>
-
-          </View>
-          <View style={{ paddingHorizontal: 40 }}>
-
-            <Text category={'h6'} style={{ textAlign: "left", textDecorationLine: "underline" }}>
-              #1 Botellas plasticas
-            </Text>
-            <Text category={"p1"} style={{ marginStart: 15 }}>
-              Cantidad: 150Gr
-            </Text>
-            <View style={{ flexDirection: "row", alignItems: 'center', height: 35 }}>
-              <Text category={"p1"} style={{ marginStart: 15, textAlignVertical: "center" }}>
-                Categoria:
-              </Text>
-              <View
-                style={{
-                  height: 30,
-                  width: 30,
-                  marginStart: 10,
-                  borderRadius: 5,
-                  backgroundColor: 'blue'
-                }}
-              ></View>
-            </View>
-
-          </View>
-          <View style={{ paddingHorizontal: 40 }}>
-
-            <Text category={'h6'} style={{ textAlign: "left", textDecorationLine: "underline" }}>
-              #1 Botellas plasticas
-            </Text>
-            <Text category={"p1"} style={{ marginStart: 15 }}>
-              Cantidad: 150Gr
-            </Text>
-            <View style={{ flexDirection: "row", alignItems: 'center', height: 35 }}>
-              <Text category={"p1"} style={{ marginStart: 15, textAlignVertical: "center" }}>
-                Categoria:
-              </Text>
-              <View
-                style={{
-                  height: 30,
-                  width: 30,
-                  marginStart: 10,
-                  borderRadius: 5,
-                  backgroundColor: 'blue'
-                }}
-              ></View>
-            </View>
-
           </View>
 
         </ScrollView>
@@ -259,4 +284,12 @@ const style = StyleSheet.create({
   }
 })
 
-export default Service;
+const mapStateToProps = (state) => {
+  return { ...state.authReducer };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Service);

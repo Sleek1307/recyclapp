@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 }
 );
 
-const StyledButton = ({ placeholder, style, action, icon, iconColor }) => {
+const StyledButton = ({ placeholder, style, action, icon, iconColor, disabled=false }) => {
   return (
     <Button
       status='primary'
@@ -29,6 +29,7 @@ const StyledButton = ({ placeholder, style, action, icon, iconColor }) => {
         ...style
       }}
       onPress={action}
+      disabled={disabled}
     >
       {placeholder}
     </Button>

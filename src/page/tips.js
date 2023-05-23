@@ -6,7 +6,7 @@ import {
   ScrollView
 } from "react-native";
 import theme from "../assets/themes/theme";
-import StepCard from "../components/cards/stepCard";
+// import StepCard from "../components/cards/stepCard";
 
 const Tips = (props) => {
 
@@ -39,9 +39,9 @@ const Tips = (props) => {
       overflow: "hidden"
     }}>
       <ScrollView contentContainerStyle={{ ...style.scroll }} showsVerticalScrollIndicator={false}>
+        {/* <StepCard style={{ marginBottom: 15 }} data={data} navigation={props.navigation} />
         <StepCard style={{ marginBottom: 15 }} data={data} navigation={props.navigation} />
-        <StepCard style={{ marginBottom: 15 }} data={data} navigation={props.navigation} />
-        <StepCard style={{ marginBottom: 0 }} data={data} navigation={props.navigation} />
+        <StepCard style={{ marginBottom: 0 }} data={data} navigation={props.navigation} /> */}
       </ScrollView>
 
     </View>

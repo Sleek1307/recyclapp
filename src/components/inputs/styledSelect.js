@@ -1,29 +1,32 @@
-import React, { useState } from "react";
-
-import { IndexPath, Layout, Select, SelectItem } from '@ui-kitten/components';
+import React, { useEffect, useState } from "react";
+import { IndexPath, Select, SelectItem } from '@ui-kitten/components';
 import { StyleSheet } from "react-native";
 
 import theme from "../../assets/themes/theme";
 
-const StyledSelect = ({ width, data }) => {
+const StyledSelect = ({ width, setValue, value, data, children, placeholder, field }) => {
 
   const [selectedIndex, setSelectedIndex] = useState(new IndexPath(0))
 
-  return (
+  useEffect(() => {
+    if (data.length > 0) {
+      setValue(field, data[selectedIndex.row])
+    }
+  }, [selectedIndex])
 
+  return (
     <Select
       size={"large"}
       selectedIndex={selectedIndex}
-      onSelect={index => setSelectedIndex(index)}
-      value={data[selectedIndex - 1]}
+      onSelect={(value) => setSelectedIndex(value)}
+      value={value.name}
       style={{
         width: width,
         ...styles.formControl,
       }}
+      placeholder={placeholder}
     >
-      {data.map((item, index) => {
-        return <SelectItem style={{ borderRadius: 50, overflow: 'hidden' }} title={item} key={index} />
-      })}
+      {children}
     </Select>
   )
 }

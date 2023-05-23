@@ -14,6 +14,14 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-recyclapp-recyclappTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-recyclapp-recyclappTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		EE4225B34A26400292A02E29 /* Baloo2-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94963A5AF6D14270A5AA78F2 /* Baloo2-Bold.ttf */; };
+		5307AE4493574AFF812E1601 /* Baloo2-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1BF5342E8ADB440E880A70A9 /* Baloo2-ExtraBold.ttf */; };
+		F64968BFE20C4F3D95685469 /* Baloo2-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FCBA065BEB664E84ABB43D6F /* Baloo2-Medium.ttf */; };
+		12D7A9EAC25C401B8877FBFD /* Baloo2-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DE6836D2642641FD99B9B508 /* Baloo2-Regular.ttf */; };
+		6F33FFF1BEB8422A8417C4DD /* Baloo2-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CEB8EA49D81B4F11AC735079 /* Baloo2-SemiBold.ttf */; };
+		747C33C8E6324622AC16ADBE /* Baloo2-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21D2C9FE1DDA463894B19A48 /* Baloo2-VariableFont_wght.ttf */; };
+		AABB8752E3B54C3EA4A535F3 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 73C627345C49472EB30073FC /* OFL.txt */; };
+		C991D9B4B6DF4AAEA8407C15 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 5D7E268AA1AB4177BA2BF795 /* README.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +52,14 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = recyclapp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-recyclapp-recyclappTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-recyclapp-recyclappTests.release.xcconfig"; path = "Target Support Files/Pods-recyclapp-recyclappTests/Pods-recyclapp-recyclappTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		94963A5AF6D14270A5AA78F2 /* Baloo2-Bold.ttf */ = {isa = PBXFileReference; name = "Baloo2-Bold.ttf"; path = "../src/assets/fonts/Baloo2-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1BF5342E8ADB440E880A70A9 /* Baloo2-ExtraBold.ttf */ = {isa = PBXFileReference; name = "Baloo2-ExtraBold.ttf"; path = "../src/assets/fonts/Baloo2-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		FCBA065BEB664E84ABB43D6F /* Baloo2-Medium.ttf */ = {isa = PBXFileReference; name = "Baloo2-Medium.ttf"; path = "../src/assets/fonts/Baloo2-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DE6836D2642641FD99B9B508 /* Baloo2-Regular.ttf */ = {isa = PBXFileReference; name = "Baloo2-Regular.ttf"; path = "../src/assets/fonts/Baloo2-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CEB8EA49D81B4F11AC735079 /* Baloo2-SemiBold.ttf */ = {isa = PBXFileReference; name = "Baloo2-SemiBold.ttf"; path = "../src/assets/fonts/Baloo2-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		21D2C9FE1DDA463894B19A48 /* Baloo2-VariableFont_wght.ttf */ = {isa = PBXFileReference; name = "Baloo2-VariableFont_wght.ttf"; path = "../src/assets/fonts/Baloo2-VariableFont_wght.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		73C627345C49472EB30073FC /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../src/assets/fonts/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5D7E268AA1AB4177BA2BF795 /* README.txt */ = {isa = PBXFileReference; name = "README.txt"; path = "../src/assets/fonts/README.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +138,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				5920A42D6B384045B5CEC6E2 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -147,6 +164,22 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		5920A42D6B384045B5CEC6E2 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				94963A5AF6D14270A5AA78F2 /* Baloo2-Bold.ttf */,
+				1BF5342E8ADB440E880A70A9 /* Baloo2-ExtraBold.ttf */,
+				FCBA065BEB664E84ABB43D6F /* Baloo2-Medium.ttf */,
+				DE6836D2642641FD99B9B508 /* Baloo2-Regular.ttf */,
+				CEB8EA49D81B4F11AC735079 /* Baloo2-SemiBold.ttf */,
+				21D2C9FE1DDA463894B19A48 /* Baloo2-VariableFont_wght.ttf */,
+				73C627345C49472EB30073FC /* OFL.txt */,
+				5D7E268AA1AB4177BA2BF795 /* README.txt */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -244,6 +277,14 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				EE4225B34A26400292A02E29 /* Baloo2-Bold.ttf in Resources */,
+				5307AE4493574AFF812E1601 /* Baloo2-ExtraBold.ttf in Resources */,
+				F64968BFE20C4F3D95685469 /* Baloo2-Medium.ttf in Resources */,
+				12D7A9EAC25C401B8877FBFD /* Baloo2-Regular.ttf in Resources */,
+				6F33FFF1BEB8422A8417C4DD /* Baloo2-SemiBold.ttf in Resources */,
+				747C33C8E6324622AC16ADBE /* Baloo2-VariableFont_wght.ttf in Resources */,
+				AABB8752E3B54C3EA4A535F3 /* OFL.txt in Resources */,
+				C991D9B4B6DF4AAEA8407C15 /* README.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
